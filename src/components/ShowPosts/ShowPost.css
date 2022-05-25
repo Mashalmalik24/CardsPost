@@ -1,0 +1,15 @@
+.grid-container {
+    flex-wrap: wrap;
+    display: grid;
+    width: 300px;
+    gap: 20px 5px;
+    margin-left: 9vw;
+}
+
+.grid-item {
+   
+    flex: 1 1 auto;
+    width: 100px;
+    height: 50px
+}
+
