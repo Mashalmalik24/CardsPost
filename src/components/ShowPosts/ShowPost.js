@@ -10,7 +10,7 @@ const ShowPost = () => {
   const [showData, setShowData] = useState(false);
   const [postData, setPostData] = useState([]);
   const [commentData, setCommentData] = useState([]);
-  const [postDetails, setPostDetails] = useState(false);
+  const [postDetails, setPostDetails] = useState([]);
   const [commentID, setCommentID] = useState("");
   const [postID, setPostID] = useState("");
 
@@ -35,9 +35,9 @@ const ShowPost = () => {
   };
   useEffect(() => {
     fetchData();
-    fetchCommentData();
-    fetchPostDetails();
-  }, [showData]);
+   // fetchCommentData();
+   // fetchPostDetails();
+  }, []);
 
   const fetchCommentData = async () => {
     try {
@@ -52,12 +52,14 @@ const ShowPost = () => {
   };
 
   const fetchPostDetails = async () => {
-    
+    console.log("CLICKED")
     try {
       const response = await axios.get(
         `https://jsonplaceholder.typicode.com/posts/${postID}`
       );
+      console.log("===>", response)
       setPostDetails(response?.data);
+      // console.log("===>", postDetails)
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +83,8 @@ const ShowPost = () => {
                   <Card.Link
                     onClick={(e) => {
                       handleShow();
-                      setCommentID(item?.id);
+                      setCommentID(item?.id)
+                      fetchCommentData()
                     }}
                   >
                     Show Comment
@@ -89,7 +92,9 @@ const ShowPost = () => {
                   <Card.Link
                     onClick={(e) => {
                       handlePostShow();
-                      setPostID(item?.id);
+                      setPostID(item?.id !== "" && item?.id);
+                      console.log(postID)
+                      fetchPostDetails()
                     }}
                   >
                     Post Details
